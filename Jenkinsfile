@@ -30,6 +30,12 @@ stages {
       sh 'mvn test'
     }
   }
+    
+    stage('Docker Build'){
+        steps {
+            sh 'docker build -t spring-boot-rest-example:${BUILD_NUMBER}'
+        }
+    }
 
 }
 
