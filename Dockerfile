@@ -1,3 +1,3 @@
 FROM openjdk:8-jdk-alpine
-COPY ./target/*.war app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY ./target/*.war app.war
+ENTRYPOINT ["java","-jar","/app.war"]
