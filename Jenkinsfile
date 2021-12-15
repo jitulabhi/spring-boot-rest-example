@@ -36,6 +36,34 @@ stages {
             sh 'docker build -t jitulabhi/spring-boot-rest-example:${BUILD_NUMBER} .'
         }
     }
+    
+    stage('push docker build'){    
+        step{
+            script{
+                withDockerRegistry(credentialsId: 'dockerHub' toolName: 'docker'){
+                sh 'docker push jitulabhi/spring-boot-rest-example:${BUILD_NUMBER}'
+                }
+            }
+        }
+    }
+    
+    stage('remove previos container'){
+        steps{
+            script{
+                try{
+                    sh 'docker rm -f $(docker ps --filter "name="spring-boot-rest-example" -aq)'
+                }catch(err){
+                echo err.getMessage() 
+                }
+            }
+        }
+    }
+    
+    stage('Docker start container'){
+        steps {
+            sh 'docker run -d --name spring-boot-rest-example -p 8090:8090 jitulabhi/spring-boot-rest-example:${BUILD_NUMBER}'
+        }
+    }
 
 }
 
