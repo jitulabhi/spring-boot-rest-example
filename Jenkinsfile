@@ -51,7 +51,7 @@ stages {
         steps{
             script{
                 try{
-                    sh 'docker rm -f $(docker ps --filter "name="spring-boot-rest-example" -aq)'
+                    sh 'docker rm -f $(docker ps --filter "name=spring-boot-rest-example" -aq)'
                 }catch(err){
                 echo err.getMessage() 
                 }
