@@ -33,7 +33,7 @@ stages {
     
     stage('Docker Build'){
         steps {
-            sh 'docker build -t jitulabhi/spring-boot-rest-example:${BUILD_NUMBER} .'
+            sh 'sudo docker build -t jitulabhi/spring-boot-rest-example:${BUILD_NUMBER} .'
         }
     }
 
