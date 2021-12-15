@@ -38,7 +38,7 @@ stages {
     }
     
     stage('push docker build'){    
-        step{
+        steps {
             script{
                 withDockerRegistry(credentialsId: 'dockerHub', toolName: 'docker'){
                 sh 'docker push jitulabhi/spring-boot-rest-example:${BUILD_NUMBER}'
