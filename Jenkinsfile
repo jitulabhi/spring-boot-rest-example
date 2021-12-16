@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    environment {
+    scannerHome=tool name: 'sonar_scanner'
+    }
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
@@ -18,6 +22,15 @@ stages {
       git credentialsId: 'gitHub', url: 'https://github.com/jitulabhi/spring-boot-rest-example.git'
     }
   }
+    
+    stage('start sonarqube analysis'){
+        steps{
+            withSonaQueEnv('Test_Sonar'){                
+                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+             }
+            
+        }
+    }
 
   stage('build') {
     steps {
