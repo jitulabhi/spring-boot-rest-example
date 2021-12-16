@@ -23,14 +23,7 @@ stages {
     }
   }
     
-    stage('start sonarqube analysis'){
-        steps{
-            withSonarQubeEnv('Test_Sonar'){                
-                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
-             }
-            
-        }
-    }
+    
 
   stage('build') {
     steps {
@@ -43,6 +36,15 @@ stages {
       sh 'mvn test'
     }
   }
+    
+    stage('sonarqube analysis'){
+        steps{
+            withSonarQubeEnv('Test_Sonar'){                
+                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+             }
+            
+        }
+    }
     
     stage('Docker Build'){
         steps {
