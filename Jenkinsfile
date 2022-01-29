@@ -19,7 +19,7 @@ pipeline {
 stages {
   stage('checkout') {
     steps {
-      git credentialsId: 'gitHub', url: 'https://github.com/jitulabhi/spring-boot-rest-example.git'
+      git credentialsId: 'gitHub', url: 'https://github.com/jitulabhi/spring-boot-rest-example.git', branch: 'master'
     }
   }
     
