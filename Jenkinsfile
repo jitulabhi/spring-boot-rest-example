@@ -1,4 +1,4 @@
-pipeline {
+lpipeline {
     agent any
     
     environment {
@@ -19,7 +19,7 @@ pipeline {
 stages {
   stage('checkout') {
     steps {
-      git credentialsId: 'gitHub', url: 'https://github.com/jitulabhi/spring-boot-rest-example.git', branch: 'master'
+      git credentialsId: 'gitHub', url: 'https://github.com/jitulabhi/spring-boot-rest-example.git', branch: 'develop'
     }
   }
     
@@ -48,7 +48,7 @@ stages {
     
     stage('Docker Build'){
         steps {
-            sh 'docker build -t jitulabhi/i-jitendralabhi-master:latest -t jitulabhi/i-jitendralabhi-master:${BUILD_NUMBER} .'
+            sh 'docker build -t jitulabhi/i-jitendralabhi-develop:latest -t jitulabhi/i-jitendralabhi-develop:${BUILD_NUMBER} .'
         }
     }
     
@@ -56,8 +56,8 @@ stages {
         steps {
             script{
                 withDockerRegistry(credentialsId: 'dockerHub', toolName: 'docker'){
-                sh 'docker push  jitulabhi/i-jitendralabhi-master:${BUILD_NUMBER}'
-                sh 'docker push  jitulabhi/i-jitendralabhi-master:latest'
+                sh 'docker push  jitulabhi/i-jitendralabhi-develop:${BUILD_NUMBER}'
+                sh 'docker push  jitulabhi/i-jitendralabhi-develop:latest'
                 }
             }
         }
