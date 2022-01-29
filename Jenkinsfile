@@ -75,10 +75,19 @@ stages {
         }
     }
     
-    stage('Docker start container'){
+   /* stage('Docker start container'){
         steps {
             sh 'docker run -d --name spring-boot-rest-example -p 8090:8090 jitulabhi/spring-boot-rest-example:${BUILD_NUMBER}'
         }
+    }*/
+    
+    stage('Deploy on kubernetes"){
+          steps {
+            sh 'kubectl apply -f deployment.yaml'
+            sh 'kubectl apply -f configmap.yaml'
+            sh 'kubectl apply -f secrets.yaml'
+            sh 'kubectl apply -f deployment.yaml'
+          }
     }
 
 }
