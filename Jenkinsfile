@@ -83,6 +83,7 @@ stages {
     
     stage('Deploy on kubernetes'){
           steps {
+            sh 'gcloud config set account jitulabhi@gmail.com'
             sh 'gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project fleet-diagram-339515'
             sh 'kubectl apply -f deployment.yaml'
             sh 'kubectl apply -f configmap.yaml'
