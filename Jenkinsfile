@@ -56,7 +56,7 @@ stages {
         steps {
             script{
                 withDockerRegistry(credentialsId: 'dockerHub', toolName: 'docker'){
-                sh 'docker push jitulabhi/spring-boot-rest-example:${BUILD_NUMBER}'
+                sh 'docker push jitulabhi/spring-boot-rest-example@latest jitulabhi/spring-boot-rest-example:${BUILD_NUMBER}'
                 }
             }
         }
