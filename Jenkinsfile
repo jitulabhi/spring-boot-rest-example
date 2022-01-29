@@ -48,7 +48,7 @@ stages {
     
     stage('Docker Build'){
         steps {
-            sh 'docker build -t jitulabhi/spring-boot-rest-example:latest -t jitulabhi/spring-boot-rest-example:${BUILD_NUMBER} .'
+            sh 'docker build -t jitulabhi/i-jitendralabhi-master:latest -t jitulabhi/i-jitendralabhi-master:${BUILD_NUMBER} .'
         }
     }
     
@@ -56,14 +56,14 @@ stages {
         steps {
             script{
                 withDockerRegistry(credentialsId: 'dockerHub', toolName: 'docker'){
-                sh 'docker push  jitulabhi/spring-boot-rest-example:${BUILD_NUMBER}'
-                sh 'docker push  jitulabhi/spring-boot-rest-example:latest'
+                sh 'docker push  jitulabhi/i-jitendralabhi-master:${BUILD_NUMBER}'
+                sh 'docker push  jitulabhi/i-jitendralabhi-master:latest'
                 }
             }
         }
     }
     
-    stage('remove previos container'){
+   /* stage('remove previos container'){
         steps{
             script{
                 try{
@@ -75,7 +75,7 @@ stages {
         }
     }
     
-   /* stage('Docker start container'){
+    stage('Docker start container'){
         steps {
             sh 'docker run -d --name spring-boot-rest-example -p 8090:8090 jitulabhi/spring-boot-rest-example:${BUILD_NUMBER}'
         }
