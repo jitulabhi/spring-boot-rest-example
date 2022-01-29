@@ -2,28 +2,28 @@
 apiVersion: v1
 kind: Namespace
 metadata:
- name: java
+ name: kubernetes-cluster-jitendralabhi
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
  name: spring-boot-app
- namespace: java
+ namespace: kubernetes-cluster-jitendralabhi
  labels:
-  app: spring-boot-app-master
+  app: spring-boot-app
 spec:
  replicas: 4
  selector:
   matchLabels:
-   app: spring-boot-app-master
+   app: spring-boot-app
  template:
   metadata:
    labels:
-    app: spring-boot-app-master
+    app: spring-boot-app
   spec:
    containers:
     - name: spring-boot-app-pod
-      image: jitulabhi/spring-boot-rest-example:25
+      image: jitulabhi/i-jitendralabhi-master
       ports:
       - containerPort: 8090
       envFrom:
@@ -36,13 +36,13 @@ apiVersion: v1
 kind: Service
 metadata:
  name: spring-boot-app-svc
- namespace: java
+ namespace: kubernetes-cluster-jitendralabhi
  labels:
   kind: service
 spec:
  type: LoadBalancer
  selector: 
-   app: spring-boot-app-master
+   app: spring-boot-app
  ports:
    - protocol: TCP
      port: 8080
