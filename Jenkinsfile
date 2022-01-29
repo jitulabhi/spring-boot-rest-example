@@ -3,6 +3,8 @@ pipeline {
     
     environment {
     scannerHome=tool name: 'sonar_scanner_java'
+    CLOUDSDK_CONFIG = "${env.WORKSPACE}"
+
     }
 
     tools {
