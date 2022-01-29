@@ -81,7 +81,7 @@ stages {
         }
     }*/
     
-    stage('Deploy on kubernetes"){
+    stage('Deploy on kubernetes'){
           steps {
             sh 'kubectl apply -f deployment.yaml'
             sh 'kubectl apply -f configmap.yaml'
