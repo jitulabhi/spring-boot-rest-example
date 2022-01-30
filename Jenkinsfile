@@ -6,7 +6,8 @@ pipeline {
     PROJECT_ID='fleet-diagram-339515'
     CLUSTER_NAME = 'cluster-1'
     LOCATION = 'us-central1-c'
-    CREDENTIALS_ID = 'kubernetes'    
+    CREDENTIALS_ID = 'kubernetes'  
+
 
     }
 
