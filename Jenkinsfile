@@ -3,7 +3,6 @@ pipeline {
     
     environment {
     scannerHome=tool name: 'sonar_scanner_java'
-    CLOUDSDK_CONFIG = "${env.WORKSPACE}"
     PROJECT_ID='fleet-diagram-339515'
     CLUSTER_NAME = 'cluster-1'
     LOCATION = 'us-central1-c'
@@ -96,7 +95,7 @@ stages {
             //sh 'kubectl apply -f secrets.yaml'
             //sh 'kubectl apply -f deployment.yaml'
               
-            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true]) ; 
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: false]) ; 
          step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'configmap.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true]) ;
               step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'secrets.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true]) ;
               step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true]) ;
