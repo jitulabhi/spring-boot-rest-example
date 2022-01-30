@@ -23,7 +23,7 @@ spec:
   spec:
    containers:
     - name: spring-boot-app-pod
-      image: jitulabhi/i-jitendralabhi-master
+      image: jitulabhi/i-jitendralabhi-develop
       ports:
       - containerPort: 8090
       envFrom:

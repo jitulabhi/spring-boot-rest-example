@@ -3,6 +3,12 @@ pipeline {
     
     environment {
     scannerHome=tool name: 'sonar_scanner_java'
+    PROJECT_ID='fleet-diagram-339515'
+    CLUSTER_NAME = 'cluster-1'
+    LOCATION = 'us-central1-c'
+    CREDENTIALS_ID = 'kubernetes'  
+
+
     }
 
     tools {
@@ -19,7 +25,7 @@ pipeline {
 stages {
   stage('checkout') {
     steps {
-      git credentialsId: 'gitHub', url: 'https://github.com/jitulabhi/spring-boot-rest-example.git', branch: 'master'
+      git credentialsId: 'gitHub', url: 'https://github.com/jitulabhi/spring-boot-rest-example.git', branch: 'develop'
     }
   }
     
@@ -48,7 +54,7 @@ stages {
     
     stage('Docker Build'){
         steps {
-            sh 'docker build -t jitulabhi/i-jitendralabhi-master:latest -t jitulabhi/i-jitendralabhi-master:${BUILD_NUMBER} .'
+            sh 'docker build -t jitulabhi/i-jitendralabhi-develop:latest -t jitulabhi/i-jitendralabhi-develop:${BUILD_NUMBER} .'
         }
     }
     
@@ -56,8 +62,8 @@ stages {
         steps {
             script{
                 withDockerRegistry(credentialsId: 'dockerHub', toolName: 'docker'){
-                sh 'docker push  jitulabhi/i-jitendralabhi-master:${BUILD_NUMBER}'
-                sh 'docker push  jitulabhi/i-jitendralabhi-master:latest'
+                sh 'docker push  jitulabhi/i-jitendralabhi-develop:${BUILD_NUMBER}'
+                sh 'docker push  jitulabhi/i-jitendralabhi-develop:latest'
                 }
             }
         }
@@ -83,10 +89,11 @@ stages {
     
     stage('Deploy on kubernetes'){
           steps {
-            sh 'kubectl apply -f deployment.yaml'
-            sh 'kubectl apply -f configmap.yaml'
-            sh 'kubectl apply -f secrets.yaml'
-            sh 'kubectl apply -f deployment.yaml'
+           
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID]) ; 
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'configmap.yaml', credentialsId: env.CREDENTIALS_ID]) ;
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'secrets.yaml', credentialsId: env.CREDENTIALS_ID]) ;
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID]) ;
           }
     }
 
