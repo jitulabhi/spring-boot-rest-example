@@ -4,6 +4,10 @@ pipeline {
     environment {
     scannerHome=tool name: 'sonar_scanner_java'
     CLOUDSDK_CONFIG = "${env.WORKSPACE}"
+    PROJECT_ID='fleet-diagram-339515'
+    CLUSTER_NAME = 'cluster-1'
+    LOCATION = 'us-central1-c'
+    CREDENTIALS_ID = 'kubernetes'    
 
     }
 
