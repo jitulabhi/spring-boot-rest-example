@@ -6,5 +6,5 @@ metadata:
  labels:
    app: app-settings
 data:
- ENVIRONMENT: dev
+ ENVIRONMENT: master
  LANGUAGE: English
