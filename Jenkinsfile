@@ -22,7 +22,7 @@ pipeline {
 }
 
 stages {
- /* stage('checkout') {
+  stage('checkout') {
     steps {
       git credentialsId: 'gitHub', url: 'https://github.com/jitulabhi/spring-boot-rest-example.git', branch: 'develop'
     }
@@ -66,7 +66,7 @@ stages {
                 }
             }
         }
-    }*/
+    }
     
    /* stage('remove previos container'){
         steps{
@@ -88,17 +88,11 @@ stages {
     
     stage('Deploy on kubernetes'){
           steps {
-           // sh 'gcloud config set account jitulabhi@gmail.com'
-           // sh 'gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project fleet-diagram-339515'
-            //sh 'kubectl apply -f deployment.yaml'
-            //sh 'kubectl apply -f configmap.yaml'
-            //sh 'kubectl apply -f secrets.yaml'
-            //sh 'kubectl apply -f deployment.yaml'
-              
+           
             step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID]) ; 
-         step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'configmap.yaml', credentialsId: env.CREDENTIALS_ID]) ;
-              step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'secrets.yaml', credentialsId: env.CREDENTIALS_ID]) ;
-              step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID]) ;
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'configmap.yaml', credentialsId: env.CREDENTIALS_ID]) ;
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'secrets.yaml', credentialsId: env.CREDENTIALS_ID]) ;
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, location: env.LOCATION, clusterName: env.CLUSTER_NAME, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID]) ;
           }
     }
 
